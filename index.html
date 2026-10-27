@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CurrencyFlow | Smart Currency Converter</title>
+  <meta name="description" content="Convert currencies with live exchange rates.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+  <header class="nav">
+    <a class="brand" href="#home"><span class="logo"><i class="fa-solid fa-right-left"></i></span>CurrencyFlow</a>
+    <nav id="menu" class="menu" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#converter">Converter</a>
+      <a href="#rates">Exchange Rates</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="themeBtn" class="icon-btn" type="button" aria-label="Switch to light theme"><i class="fa-solid fa-sun"></i></button>
+      <button id="menuBtn" class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <span class="badge"><i class="fa-solid fa-bolt"></i> Smart Currency Converter</span>
+        <h1>Exchange Currencies. Explore the World.</h1>
+        <p>Pick any two currencies, enter an amount, and get the converted value using the latest exchange rates available from a free public API.</p>
+        <a class="btn primary" href="#converter">Start converting</a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="globe"><span class="ring r1"></span><span class="ring r2"></span></div>
+        <span class="sym s1">$</span><span class="sym s2">€</span><span class="sym s3">£</span><span class="sym s4">₹</span>
+      </div>
+    </section>
+
+    <section id="converter" class="stage">
+      <div class="card">
+        <h2>Convert currency</h2>
+        <p class="sub">Choose your currencies, enter an amount, then press Convert.</p>
+
+        <form id="converterForm" novalidate>
+          <label for="amount" class="lbl">Amount</label>
+          <input id="amount" name="amount" type="text" inputmode="decimal" value="100" autocomplete="off" aria-describedby="amountError">
+          <p id="amountError" class="field-error" role="alert" hidden></p>
+
+          <div class="pair-row">
+            <div class="field">
+              <label for="fromSelect" class="lbl">From</label>
+              <div class="select-wrap"><img id="fromFlag" src="https://flagsapi.com/US/flat/64.png" alt="" width="28" height="28"><select id="fromSelect" name="from"></select></div>
+            </div>
+            <button id="swapBtn" class="swap" type="button" aria-label="Swap currencies"><i class="fa-solid fa-right-left"></i></button>
+            <div class="field">
+              <label for="toSelect" class="lbl">To</label>
+              <div class="select-wrap"><img id="toFlag" src="https://flagsapi.com/IN/flat/64.png" alt="" width="28" height="28"><select id="toSelect" name="to"></select></div>
+            </div>
+          </div>
+
+          <button id="convertBtn" class="btn primary wide" type="submit">Convert</button>
+        </form>
+
+        <div id="result" class="result" aria-live="polite">
+          <p id="stEmpty" class="state">Enter an amount and press Convert to see the result.</p>
+          <p id="stLoading" class="state" hidden><span class="spinner"></span> Fetching latest rate…</p>
+          <p id="stError" class="state err" hidden></p>
+          <div id="stSuccess" hidden>
+            <p id="resFrom" class="res-from"></p>
+            <p id="resTo" class="res-to"></p>
+            <p id="resRate" class="res-meta"></p>
+            <p id="resDate" class="res-meta"></p>
+            <div class="res-actions">
+              <button id="copyBtn" class="btn ghost" type="button"><i class="fa-regular fa-copy"></i> <span id="copyLabel">Copy result</span></button>
+              <button id="resetBtn" class="btn ghost" type="button"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rates" class="section">
+      <h2>Exchange rates</h2>
+      <p class="sub">Popular pairs, loaded from the API. Select one to use it in the converter.</p>
+      <div id="pairGrid" class="pair-grid">
+        <button class="pair" type="button" data-from="USD" data-to="INR"><span class="pair-name">USD to INR</span><span class="pair-rate">Loading…</span></button>
+        <button class="pair" type="button" data-from="EUR" data-to="USD"><span class="pair-name">EUR to USD</span><span class="pair-rate">Loading…</span></button>
+        <button class="pair" type="button" data-from="GBP" data-to="INR"><span class="pair-name">GBP to INR</span><span class="pair-rate">Loading…</span></button>
+        <button class="pair" type="button" data-from="USD" data-to="JPY"><span class="pair-name">USD to JPY</span><span class="pair-rate">Loading…</span></button>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <h2>About</h2>
+      <p>CurrencyFlow is a small project built with HTML, CSS and vanilla JavaScript. Rates come from the free <a href="https://github.com/fawazahmed0/exchange-api" target="_blank" rel="noopener">fawazahmed0 currency API</a> and flags from flagsapi.com. Nothing you type is stored or sent anywhere except the request for a currency's rates. Rates are for information only and may differ from bank rates.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> CurrencyFlow. Built for learning.</p>
+  </footer>
+
+  <script src="codes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
